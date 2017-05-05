@@ -59,13 +59,26 @@ The entire dataset was split into training and validation samples with 20% set a
 
 #### 3. Model parameter tuning
 
-The model was optimized on mean-square error using an adam optimizer, so the learning rate was not tuned manually.
+The model was optimized on mean-square error using an adam optimizer, so the learning rate was not tuned manually. However, two other hyper-parameters, BATCHSIZE and NUMEPOCHS were tuned by doing multiple trainings with their different values. After testing the models trained with different parameters in simulator, BATCHSIZE=128 and NUMEPOCHS=5 were chosen as they gave optimal model. Lower BATCHSIZE gave suboptimal model which missed a couple of sharp turns in track 1. Training the model beyond 5 epochs did not improve the model performance much.
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used driving data for center lane driving along with data from left and  ... 
+Training data was chosen to keep the vehicle driving on the road. I used driving data for center lane driving along with data from left and right cameras with some steering angle corrections. It turned out that steering angle correction of 0.10 for left and right camera images provided extra training data to train the model to run properly in simulator. Without these extra images with corrected steering angles, model was not able to learn to drive at the sharp turns of the roads. In addition, each image is flipped along with adjusted steering angle to augment the training data set. The flipped images provided a needed boost to learn to drive at the central region of the road.
 
-For details about how I created the training data, see the next section. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ###Model Architecture and Training Strategy
 
