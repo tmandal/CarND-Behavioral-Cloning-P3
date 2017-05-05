@@ -37,25 +37,33 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. An appropriate model architecture has been employed
 
-My model closely follows NVIDIA's end-to-end model for self driving cars (https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf).
+My model closely follows NVIDIA's end-to-end model for self driving cars. 
+    https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf
 
 The model uses the following layers in series.
 * Normalization layer to restrict image feature values to be in [-1.0, 1.0] range.
-* Crop layer to remove top 50 and bottom 20 pixel rows to get rid of useless information
+* Crop layer to remove top 50 and bottom 20 pixel rows to get rid of information unrelated to road view.
+* 3 5x5 strided convolution layers with 2x2 strides for 12, 24, 48 filters in each layer respectively.
+* 2 3x3 convolution layers for 64 filters in each layer.
+* 3 fully connected layers with 100, 50, 10 neurons in each layer respectively.
+* Dropout layer with 50% dropout probability 
+* Final fully connected layer to output steering angle
 
-####2. Attempts to reduce overfitting in the model
+Each of 5 convolution layers and 3 fully connected layers use relu activation to add non-linearity to the model.
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
+#### 2. Attempts to reduce overfitting in the model
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model contains a dropout layer at the output of penultimate fully connected layer in order to reduce overfitting. 
 
-####3. Model parameter tuning
+The entire dataset was split into training and validation samples with 20% set aside for validation. The model was trained with training samples only and the model was validated with validation samples that model did not see in the training. Achieving a low loss for validation samples ensures that model was not getting overfitted. The model was further tested by running it through the simulator in track 1 and ensuring that the vehicle could stay on the track.
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+#### 3. Model parameter tuning
 
-####4. Appropriate training data
+The model was optimized on mean-square error using an adam optimizer, so the learning rate was not tuned manually.
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
+#### 4. Appropriate training data
+
+Training data was chosen to keep the vehicle driving on the road. I used driving data for center lane driving along with data from left and  ... 
 
 For details about how I created the training data, see the next section. 
 
