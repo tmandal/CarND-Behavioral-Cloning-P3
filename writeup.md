@@ -51,6 +51,30 @@ The model uses the following layers in series.
 
 Each of 5 convolution layers and 3 fully connected layers use relu activation to add non-linearity to the model.
 
+Layer (type)                 |Output Shape              |Param #   
+--- | --- | ---
+lambda_1 (Lambda)            |(None, 160, 320, 3)       |0         
+cropping2d_1 (Cropping2D)    |(None, 90, 320, 3)        |0         
+conv2d_1 (Conv2D)            |(None, 43, 158, 24)       |1824      
+activation_1 (Activation)    |(None, 43, 158, 24)       |0         
+conv2d_2 (Conv2D)            |(None, 20, 77, 36)        |21636     
+activation_2 (Activation)    |(None, 20, 77, 36)        |0         
+conv2d_3 (Conv2D)            |(None, 8, 37, 48)         |43248   
+activation_3 (Activation)    |(None, 8, 37, 48)         |0         
+conv2d_4 (Conv2D)            |(None, 6, 35, 64)         |27712     
+activation_4 (Activation)    |(None, 6, 35, 64)         |0         
+conv2d_5 (Conv2D)            |(None, 4, 33, 64)         |36928     
+activation_5 (Activation)    |(None, 4, 33, 64)         |0         
+flatten_1 (Flatten)          |(None, 8448)              |0         
+dense_1 (Dense)              |(None, 100)               |844900    
+activation_6 (Activation)    |(None, 100)               |0         
+dense_2 (Dense)              |(None, 50)                |5050      
+activation_7 (Activation)    |(None, 50)                |0         
+dense_3 (Dense)              |(None, 10)                |510       
+dropout_1 (Dropout)          |(None, 10)                |0         
+activation_8 (Activation)    |(None, 10)                |0         
+dense_4 (Dense)              |(None, 1)                 |11        
+
 #### 2. Attempts to reduce overfitting in the model
 
 The model contains a dropout layer at the output of penultimate fully connected layer in order to reduce overfitting. 
