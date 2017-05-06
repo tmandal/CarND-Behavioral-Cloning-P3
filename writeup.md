@@ -51,6 +51,8 @@ The model uses the following layers in series.
 
 Each of 5 convolution layers and 3 fully connected layers use relu activation to add non-linearity to the model.
 
+The configurations for each network layer are described in below table.
+
 Layer (type)                 |Output Shape              |Param #   
 --- | --- | ---
 lambda_1 (Lambda)            |(None, 160, 320, 3)       |0         
@@ -75,6 +77,12 @@ dropout_1 (Dropout)          |(None, 10)                |0
 activation_8 (Activation)    |(None, 10)                |0         
 dense_4 (Dense)              |(None, 1)                 |11        
 
+Total number of trainable parameters in this network is approximately one million. 
+
+I started with NVIDIA's end-to-end model with the addition of a couple of pooling layers to reduce overall parameter count. This modified model was able to learn from training dataset provided in this problem. But the model could not steer the car safely at sharp turns. As I augmented the training dataset with left and right camera images, the model was able to learn few of sharp turns but it eventually failed at rest of the sharp turns. Eventually I had to remove pooling layers to have the model learn more accurate features in order to learn how to drive around all curves.
+
+The model was trained on a GPU and each epoch took two minutes to complete its training.
+
 #### 2. Attempts to reduce overfitting in the model
 
 The model contains a dropout layer at the output of penultimate fully connected layer in order to reduce overfitting. 
@@ -89,72 +97,5 @@ The model was optimized on mean-square error using an adam optimizer, so the lea
 
 Training data was chosen to keep the vehicle driving on the road. I used driving data for center lane driving along with data from left and right cameras with some steering angle corrections. It turned out that steering angle correction of 0.10 for left and right camera images provided extra training data to train the model to run properly in simulator. Without these extra images with corrected steering angles, model was not able to learn to drive at the sharp turns of the roads. In addition, each image is flipped along with adjusted steering angle to augment the training data set. The flipped images provided a needed boost to learn to drive at the central region of the road.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-###Model Architecture and Training Strategy
-
-####1. Solution Design Approach
-
-The overall strategy for deriving a model architecture was to ...
-
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
-
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
-
-To combat the overfitting, I modified the model so that ...
-
-Then I ... 
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
-
-At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
-
-####2. Final Model Architecture
-
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
-
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
-
-![alt text][image1]
-
-####3. Creation of the Training Set & Training Process
-
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
-
-![alt text][image2]
-
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
-
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
-
-Then I repeated this process on track two in order to get more data points.
-
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
-![alt text][image6]
-![alt text][image7]
-
-Etc ....
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
-
-
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+#### 5. Conclusions
 
