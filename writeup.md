@@ -99,3 +99,4 @@ Training data was chosen to keep the vehicle driving on the road. I used driving
 
 #### 5. Conclusions
 
+The supplied dataset along with augmented data from left and right cameras with flips helped train a NVIDIA's drivenet based model to learn to drive on track 1. The trained model was able to successfully drive the car in track 1 at 25 mph in the supplied simulator without any problems. The model was tried to complete many laps in track 1 for 30 minutes and there was no unsafe driving observed with this model.
