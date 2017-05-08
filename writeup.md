@@ -49,7 +49,7 @@ The model uses the following layers in series.
 * Dropout layer with 50% dropout probability 
 * Final fully connected layer to output steering angle
 
-Each of 5 convolution layers and 3 fully connected layers use relu activation to add non-linearity to the model.
+Each of 5 convolution layers and 3 fully connected layers uses relu activation to add non-linearity to the model.
 
 The configurations for each network layer are described in below table.
 
@@ -91,7 +91,7 @@ The entire dataset was split into training and validation samples with 20% set a
 
 #### 3. Model parameter tuning
 
-The model was optimized on mean-square error using an adam optimizer, so the learning rate was not tuned manually. However, two other hyper-parameters, BATCHSIZE and NUMEPOCHS were tuned by doing multiple trainings with their different values. After testing the models trained with different parameters in simulator, BATCHSIZE=128 and NUMEPOCHS=5 were chosen as they gave optimal model. Lower BATCHSIZE gave suboptimal model which missed a couple of sharp turns in track 1. Training the model beyond 5 epochs did not improve the model performance much.
+The model was optimized on mean-square error using an adam optimizer, so the learning rate was not tuned manually. However, two other hyper-parameters, BATCHSIZE and NUMEPOCHS were tuned by doing multiple trainings with their different values. After testing the models trained with different parameters in simulator, BATCHSIZE=64 or 128 and NUMEPOCHS=5 were chosen as they gave optimal model. Lower BATCHSIZE gave suboptimal model which missed a couple of sharp turns in track 1. Training the model beyond 5 epochs did not improve the model performance much.
 
 #### 4. Appropriate training data
 
