@@ -49,6 +49,11 @@ The model uses the following layers in series.
 * Dropout layer with 50% dropout probability 
 * Final fully connected layer to output steering angle
 
+Here is an example of cropping each sample image to reduce unwanted information.
+
+![alt text][image_sample_center_noflip]
+![alt text][image_sample_center_noflip_cropped]
+
 Each of 5 convolution layers and 3 fully connected layers uses relu activation to add non-linearity to the model.
 
 The configurations for each network layer are described in below table.
@@ -97,19 +102,28 @@ The model was optimized on mean-square error using an adam optimizer, so the lea
 
 Training data was chosen to keep the vehicle driving on the road. I used driving data for center lane driving along with data from left and right cameras with some steering angle corrections. It turned out that steering angle correction of 0.10 for left and right camera images provided extra training data to train the model to run properly in simulator. Without these extra images with corrected steering angles, model was not able to learn to drive at the sharp turns of the roads. In addition, each image is flipped along with adjusted steering angle to augment the training data set. The flipped images provided a needed boost to learn to drive at the central region of the road.
 
+*Histogram of udacity provided data after augmentation*
+![alt text][image_histo]
+
+Ideally, more driving samples could have been added to udacity provided dataset in order to balance the above histogram of steering angles from augmented dataset. Particularly driving samples for wider steering angles would have been useful to boost model accuracy and would have also helped drive sharp turns more effectively. Because I did not have analog interface to drive the car in training mode in simulator, I could not augment the dataset with my dataset.
+
+Here are some examples of samples from left and right cameras.
+
+![alt text][image_sample_left_noflip]
+![alt text][image_sample_right_noflip]
+
+More examples are for flipping camera images to further augment the dataset.
+
+![alt text][image_sample_center_noflip]
+![alt text][image_sample_center_flip]
+
+#### 5. Conclusions
+
+The supplied dataset along with augmented data from left and right cameras with flips helped train a NVIDIA's drivenet based model to learn to drive on track 1. The trained model was able to successfully drive the car in track 1 at 25 mph in the supplied simulator without any problems. The model was tried to complete many laps in track 1 for 30 minutes and there was no unsafe driving observed with this model.
+
 [image_histo]: examples/histo3.jpg
 [image_sample_center_noflip]: examples/sample_center_flipFalse.jpg
 [image_sample_center_noflip_cropped]: examples/sample_center_flipFalse_cropped.jpg
 [image_sample_left_noflip]: examples/sample_left_flipFalse.jpg
 [image_sample_right_noflip]: examples/sample_right_flipFalse.jpg
 [image_sample_center_flip]: examples/sample_center_flipTrue.jpg
-
-![alt text][image_sample_center_noflip]
-![alt text][image_sample_center_noflip_cropped]
-
-
-*Histogram of udacity provided data after augmentation*
-![alt text][image_histo]
-#### 5. Conclusions
-
-The supplied dataset along with augmented data from left and right cameras with flips helped train a NVIDIA's drivenet based model to learn to drive on track 1. The trained model was able to successfully drive the car in track 1 at 25 mph in the supplied simulator without any problems. The model was tried to complete many laps in track 1 for 30 minutes and there was no unsafe driving observed with this model.
